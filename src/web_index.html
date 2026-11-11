@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>InsightFlow</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 class="logo">INSIGHT<span>//</span>FLOW</h1>
+    <div class="chips" aria-live="polite">
+      <span class="chip"><span id="dot" class="dot"></span><b id="busy">вільний</b></span>
+      <span class="chip">дайджест: <b id="reportTime">—</b></span>
+      <span class="chip">збір: <b id="lastFetch">—</b></span>
+    </div>
+  </header>
+
+  <section class="stats" id="stats" aria-label="Статистика бази"></section>
+
+  <nav role="tablist" aria-label="Розділи">
+    <button role="tab" id="tab-digest" aria-selected="true" aria-controls="p-digest">Дайджест</button>
+    <button role="tab" id="tab-agent" aria-selected="false" aria-controls="p-agent">Агент</button>
+  </nav>
+
+  <section id="p-digest" role="tabpanel" aria-labelledby="tab-digest">
+    <div class="panel">
+      <div class="row">
+        <button class="neon" id="btnRebuild">Перебудувати дайджест</button>
+        <button class="neon pink" id="btnIngest">Зібрати свіжі новини</button>
+        <span class="hint grow" style="margin:0">Збір потребує інтернету; класифікація — baseline (кілька секунд).</span>
+      </div>
+      <pre class="log" id="refreshLog" hidden></pre>
+    </div>
+    <div id="cards" class="cards"></div>
+  </section>
+
+  <section id="p-agent" role="tabpanel" aria-labelledby="tab-agent" hidden>
+    <div class="panel">
+      <form id="askForm" class="row" autocomplete="off">
+        <div class="grow"><label for="q" class="hint" style="margin:0 0 4px; display:block">Питання до агента (укр. або англ.)</label>
+          <input type="text" id="q" maxlength="500" placeholder="Find news about Israel" required></div>
+        <div><label for="model" class="hint" style="margin:0 0 4px; display:block">Модель</label><select id="model"></select></div>
+        <div style="align-self:flex-end"><button class="neon" id="btnAsk" type="submit">Запустити</button></div>
+      </form>
+      <div class="examples" id="examples"></div>
+      <p class="hint">Модель працює на CPU: відповідь займає від кількох десятків секунд до кількох хвилин. Хід міркувань видно наживо.</p>
+    </div>
+    <div class="term" id="term" aria-live="polite"><div class="empty">Тут з’явиться хід роботи агента: Thought → Action → Observation.</div></div>
+    <div id="answer"></div>
+  </section>
+</div>
+<div class="toast" id="toast" role="alert" hidden></div>
+
+<script src="./app.js"></script>
+</body>
+</html>

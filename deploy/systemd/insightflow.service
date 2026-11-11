@@ -1,0 +1,7 @@
+[Unit]
+Description=insightflow-ai: щоденний дайджест новин
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/Desktop/dev/insightflow-ai
+ExecStart=%h/Desktop/dev/insightflow-ai/.venv/bin/python -m src.run_daily --model baseline

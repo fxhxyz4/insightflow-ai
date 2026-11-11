@@ -1,0 +1,4 @@
+method,n,accuracy,macro_f1,f1_mixed,f1_thematic,sec_per_item
+baseline_tfidf_logreg,137,0.6934,0.7117,0.3579,0.8521,0.008
+llm_phi,137,0.7518,0.7383,0.7136,0.7335,2.236
+llm_qwen3,137,0.7007,0.6688,0.2781,0.7631,3.512
