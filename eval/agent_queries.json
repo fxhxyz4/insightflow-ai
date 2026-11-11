@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "type": "digest",
+    "category": "economics",
+    "question": "Give me a summary of today's economics news."
+  },
+  {
+    "id": 2,
+    "type": "digest",
+    "category": "programming",
+    "question": "Дай зведення новин з програмування за сьогодні."
+  },
+  {
+    "id": 3,
+    "type": "digest",
+    "category": "design",
+    "question": "Summarize the latest design news for me."
+  },
+  {
+    "id": 4,
+    "type": "digest",
+    "category": "marketing",
+    "question": "Зроби дайджест по маркетингу."
+  },
+  {
+    "id": 5,
+    "type": "digest",
+    "category": "science",
+    "question": "What happened in science today? Give me a digest."
+  },
+  {
+    "id": 6,
+    "type": "digest",
+    "category": "world",
+    "question": "Дай зведення світових новин за сьогодні."
+  },
+  {
+    "id": 7,
+    "type": "headlines",
+    "category": "economics",
+    "question": "What are the latest headlines in economics?"
+  },
+  {
+    "id": 8,
+    "type": "headlines",
+    "category": "programming",
+    "question": "Що нового в програмуванні? Покажи заголовки."
+  },
+  {
+    "id": 9,
+    "type": "headlines",
+    "category": "design",
+    "question": "List the newest design headlines."
+  },
+  {
+    "id": 10,
+    "type": "headlines",
+    "category": "marketing",
+    "question": "Які свіжі новини з маркетингу?"
+  },
+  {
+    "id": 11,
+    "type": "headlines",
+    "category": "science",
+    "question": "Show me today's science headlines."
+  },
+  {
+    "id": 12,
+    "type": "headlines",
+    "category": "world",
+    "question": "What are the main world news right now?"
+  },
+  {
+    "id": 13,
+    "type": "search",
+    "keywords": "Trump",
+    "question": "Find news about Trump."
+  },
+  {
+    "id": 14,
+    "type": "search",
+    "keywords": "Israel",
+    "question": "Find news about Israel."
+  },
+  {
+    "id": 15,
+    "type": "search",
+    "keywords": "Amazon",
+    "question": "Find news about Amazon."
+  }
+]
