@@ -1,0 +1,52 @@
+x-app: &app
+  build: .
+  environment: &env
+    TZ: Europe/Kyiv
+    HF_HOME: /models
+    MODEL: baseline        # baseline | phi | qwen3 | qwen35
+    DIGEST_MODEL: none     # none | phi | qwen3 | qwen35
+  volumes:
+    - ./data:/app/data
+    - ./reports:/app/reports
+    - ./models:/models     # cache GGUF
+
+services:
+  scheduler:               # docker compose up -d scheduler
+    <<: *app
+    restart: unless-stopped
+    environment:
+      <<: *env
+      RUN_AT: "07:00,19:00"
+      RUN_ON_START: "1"
+
+  web:                     # docker compose up -d web
+    <<: *app
+    restart: unless-stopped
+    command: ["python", "-m", "src.web"]
+    ports: ["127.0.0.1:8000:8000"]
+    environment:
+      <<: *env
+      HOST: "0.0.0.0"
+      PORT: "8000"
+      WEB_MODEL: phi
+
+  chat:                    # docker compose run --rm chat
+    <<: *app
+    profiles: ["tools"]
+    command: ["python", "-m", "src.chat", "--model", "phi"]
+    stdin_open: true
+    tty: true
+
+  eval:                    # docker compose run --rm eval python -m eval.eval_classify --models phi
+    <<: *app
+    profiles: ["tools"]
+    command: ["python", "-m", "eval.eval_classify"]
+
+  db-browser:
+    image: coleifer/sqlite-web
+    profiles: ["tools"]
+    ports: ["8080:8080"]
+    environment:
+      SQLITE_DATABASE: news.db
+    volumes:
+      - ./data:/data
