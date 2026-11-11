@@ -1,0 +1,25 @@
+--extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+
+# LLM #
+llama-cpp-python==0.3.36
+huggingface-hub==2.4.0
+
+# Data parsers #
+feedparser==6.0.14
+requests==2.34.2
+
+# Baseline & metrics #
+scikit-learn==1.9.1
+pandas==3.1.1
+numpy==2.5.4
+
+# Graphics & progress bar #
+matplotlib==3.11.2
+tqdm==4.70.1
+
+# Notebook #
+ipykernel==7.4.0
+jupyterlab==4.6.6
+
+# Tests #
+pytest==9.2.0
