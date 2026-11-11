@@ -15,6 +15,7 @@ from config.config import CATEGORIES, DB_PATH
 from config.runtime import DEFAULT_MODEL, MODELS, REPORTS_DIR
 
 INDEX_HTML = Path(__file__).with_name("web_index.html")
+STATIC = {"/style.css": ("style.css", "text/css; charset=utf-8"), "/app.js": ("app.js", "text/javascript; charset=utf-8")}
 MAX_BODY = 4096
 MAX_QUESTION = 500
 MAX_JOBS = 50
@@ -177,6 +178,9 @@ def make_handler(app):
             path = self.path.split("?")[0]
             if path in ("/", "/index.html"):
                 return self._send(200, INDEX_HTML.read_bytes(), "text/html; charset=utf-8")
+            if path in STATIC:
+                name, ctype = STATIC[path]
+                return self._send(200, INDEX_HTML.with_name(name).read_bytes(), ctype)
             if path == "/api/status":
                 return self._send(200, app.status())
             if path == "/api/digest":

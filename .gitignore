@@ -2,6 +2,10 @@
 text.txt
 models/
 *.gguf
+data/*.db
+data/*.db-*
+*.sqlite
+*.sqlite3
 reports/*.md
 !reports/.gitkeep
 
