@@ -49,6 +49,16 @@ def test_index_and_status(server):
     assert call(server, "/api/digest")[1] == {"text": None}
 
 
+def test_static_assets_referenced_by_index_are_served(server):
+    import re
+    html = call(server, "/")[1].decode()
+    refs = re.findall(r'(?:src|href)="\./([^"]+)"', html)
+    assert refs, "index must reference its css and js"
+    for name in refs:
+        code, body = call(server, "/" + name)
+        assert code == 200 and len(body) > 100, name
+
+
 def test_refresh_builds_digest_then_ask_streams_steps(server):
     code, job = call(server, "/api/refresh", {"ingest": False})
     assert code == 202

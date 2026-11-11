@@ -23,7 +23,7 @@ services:
     <<: *app
     restart: unless-stopped
     command: ["python", "-m", "src.web"]
-    ports: ["127.0.0.1:8000:8000"]
+    ports: ["127.0.0.1:${WEB_PORT:-8000}:8000"]
     environment:
       <<: *env
       HOST: "0.0.0.0"
