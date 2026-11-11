@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies (lean set, versions from requirements.txt)
+        run: |
+          python -m pip install --upgrade pip
+          grep -E '^(feedparser|requests|scikit-learn|pandas|numpy|tqdm|pytest)==' requirements.txt > requirements-ci.txt
+          cat requirements-ci.txt
+          python -m pip install -r requirements-ci.txt
+
+      - name: Import smoke test (all modules import without llama_cpp)
+        run: |
+          python -c "import config.config, config.runtime, src.ingest, src.classify, src.digest, src.tools, src.agent, src.llm, src.run_daily, src.scheduler, src.chat, src.web, eval.eval_classify, eval.eval_agent, eval.compare, eval.make_tables"
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      - name: Forbid model weights and databases in git
+        run: |
+          bad=$(git ls-files | grep -E '\.(gguf|db|sqlite3?)$' || true)
+          if [ -n "$bad" ]; then echo "Заборонені файли в репозиторії:"; echo "$bad"; exit 1; fi
